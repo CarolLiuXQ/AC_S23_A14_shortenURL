@@ -15,6 +15,8 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
+
+
 app.post('/', (req, res) => {
   const originURL = req.body.URL
   const url = new URL({
