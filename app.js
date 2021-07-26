@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
 })
 
 const admin = 'http://localhost/'
+const randomCode = require('./tools/randomCode')
 
 app.post('/', (req, res) => {
   //避免有輸入空白
@@ -29,26 +30,26 @@ app.post('/', (req, res) => {
   if (/\/.*\/.*\//.test(originURL) !== true) {
     adminLowerCaseURL = adminLowerCaseURL.concat('/')
   }
+
   //////判斷網址有沒有重複
-  //輸入相同網址時，產生一樣的縮址
   URL.find({ originURL: adminLowerCaseURL })
     .lean()
     .then(url => {
-      res.render('index', { shortenURL: admin.concat(url[0].shortenURL) })
+      //輸入相同網址時，產生一樣的縮址
+      if (url.length === 1) {
+        res.render('index', { shortenURL: admin.concat(url[0].shortenURL) })
+      }
+      //因無相同網址，故產生一個新的
+      else {
+        const NewURL = new URL({
+          originURL: originURL,
+          shortenURL: randomCode()
+        })
+        NewURL.save()
+          .then(() => res.render('index', { shortenURL: admin.concat(NewURL.shortenURL) }))
+      }
     })
     .catch(error => console.log(error))
-
-
-
-
-
-  // const url = new URL({
-  //   originURL: originURL,
-  //   shortenURL: randomCode()
-  // })
-  // return url.save()
-  //   .then(() => res.render('index', { originURL }))
-  //   .catch(error => console.log(error))
 })
 
 
