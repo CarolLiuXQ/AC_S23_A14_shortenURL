@@ -1,11 +1,11 @@
 const copyButton = document.querySelector('#copyButton')
 
 function copyURL() {
-  const target = document.querySelector('#shortenURL')
+  const shortenURL = document.querySelector('#shortenURL')
   let range, select;
   if (document.createRange) {
     range = document.createRange();
-    range.selectNode(target)
+    range.selectNode(shortenURL)
     select = window.getSelection();
     select.removeAllRanges();
     select.addRange(range);
@@ -13,7 +13,7 @@ function copyURL() {
     select.removeAllRanges();
   } else {
     range = document.body.createTextRange();
-    range.moveToElementText(target);
+    range.moveToElementText(shortenURL);
     range.select();
     document.execCommand('copy');
   }
