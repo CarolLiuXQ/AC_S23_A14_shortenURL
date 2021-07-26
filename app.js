@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
-const admin = 'http://localhost/'
+const admin = `http://localhost:${PORT}/`
 const randomCode = require('./tools/randomCode')
 
 app.post('/', (req, res) => {
@@ -49,6 +49,15 @@ app.post('/', (req, res) => {
           .then(() => res.render('index', { shortenURL: admin.concat(NewURL.shortenURL) }))
       }
     })
+    .catch(error => console.log(error))
+})
+
+
+app.get('/:randomCode', (req, res) => {
+  const randomCode = req.url.replace('/', '')
+  URL.find({ shortenURL: randomCode })
+    .lean()
+    .then(result => res.redirect(result[0].originURL))
     .catch(error => console.log(error))
 })
 
