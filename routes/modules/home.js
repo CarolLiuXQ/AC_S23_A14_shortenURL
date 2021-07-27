@@ -3,27 +3,20 @@ const router = express.Router()
 const PORT = process.env.PORT || 3000
 
 const URL = require('../../models/URL')
-const admin = `http://localhost:${PORT}/`
+const admin = process.env.ROOT_URL || `http://localhost:${PORT}/`
 const randomCode = require('../../tools/randomCode')
+const cleanOriginURL = require('../../tools/cleanOriginURL')
 
-//根目錄
+/////////根目錄
 router.get('/', (req, res) => {
   res.render('index')
 })
 
 
-//post根目錄
+//////////post根目錄
 router.post('/', (req, res) => {
-  //避免有輸入空白
-  const originURL = req.body.URL.replace(/\s/g, '')
-  //網域之後的要讓originURL的網域全部變成小寫 
-  const thirdSlashIndex = originURL.split('/', 3).join('/').length
-  const adminURL = originURL.slice(0, thirdSlashIndex)
-  let adminLowerCaseURL = originURL.replace(adminURL, adminURL.toLowerCase())
-  //如果沒有三個/的話，就讓adminLowerCaseURL補上第三個/，是為了統一格式
-  if (/\/.*\/.*\//.test(originURL) !== true) {
-    adminLowerCaseURL = adminLowerCaseURL.concat('/')
-  }
+  //整理輸入網址
+  const adminLowerCaseURL = cleanOriginURL(req.body.URL)
 
   //////判斷網址有沒有重複
   URL.find({ originURL: adminLowerCaseURL })
@@ -47,7 +40,7 @@ router.post('/', (req, res) => {
 })
 
 
-//get短縮網址
+/////////////get短縮網址
 router.get('/:randomCode', (req, res) => {
   const randomCode = req.url.replace('/', '')
   URL.find({ shortenURL: randomCode })
