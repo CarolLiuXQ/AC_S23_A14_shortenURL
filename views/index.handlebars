@@ -1,18 +1,26 @@
-<h1>URL Shortener</h1>
-<img src="https://image.flaticon.com/icons/png/512/122/122933.png" alt="" class="mx-auto d-block">
-{{#if shortenURL}}
-<div class="mb-3">
-  <h4>Success! Please use this link:</h4>
-  <h6 style="color: rgb(0, 112, 231);" id="shortenURL">{{shortenURL}}</h6>
-</div>
-<button class="btn btn-outline-primary mb-3" id="copyButton">Copy</button>
-
-{{else}}
-<form action="/" method="POST">
-  <div class="mb-3">
-    <input type="url" class="form-control" placeholder="Input URL here" name="URL" required>
+<div class="row justify-content-center p-5 col-8" style="border:3px solid #f0f0f0;">
+  <h1 style="text-align:center;">URL Shortener</h1>
+  <img src="https://image.flaticon.com/icons/png/512/122/122933.png" alt="" class="mx-auto d-block mt-4 mb-5"
+    style="max-width: 150px;">
+  {{#if shortenURL}}
+  <div class="mb-3 mt-5">
+    <h4 style="font-weight:bold;">Success! Please use this link:</h4>
+    <h6 style="color: rgb(0, 112, 231);font-weight:bold;" id="shortenURL">{{shortenURL}}</h6>
   </div>
-  <button type="submit" class="btn btn-outline-primary mb-3">Shorten</button>
-</form>
+  <div class="d-flex justify-content-center">
+    <button class="btn btn-outline-primary mb-3 col-3" id="copyButton">Copy</button>
+  </div>
 
-{{/if}}
+  {{else}}
+  <form action="/" method="POST">
+    <div class="mb-3 mt-5">
+      <input type="url" class="form-control" placeholder="Input URL here" name="URL"
+        style="background-color:#f0f0f0; border:none;" required>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button type="submit" class="btn btn-outline-primary mb-3 col-5">Shorten</button>
+    </div>
+  </form>
+  {{/if}}
+
+</div>

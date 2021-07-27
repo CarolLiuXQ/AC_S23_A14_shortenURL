@@ -17,7 +17,7 @@ function copyURL() {
     range.select();
     document.execCommand('copy');
   }
-  copyButton.className = 'btn btn-primary mb-3'
+  copyButton.className = 'btn btn-primary mb-3 col-3'
   copyButton.innerHTML = 'Copied!'
 }
 
