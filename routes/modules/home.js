@@ -3,7 +3,7 @@ const router = express.Router()
 const PORT = process.env.PORT || 3000
 
 const URL = require('../../models/URL')
-const admin = `http://localhost:${PORT}/`
+const admin = process.env.ROOT_URL || `http://localhost:${PORT}/`
 const randomCode = require('../../tools/randomCode')
 const cleanOriginURL = require('../../tools/cleanOriginURL')
 
