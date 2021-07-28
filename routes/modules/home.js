@@ -42,7 +42,7 @@ router.post('/', (req, res) => {
 
 /////////////get短縮網址
 router.get('/:randomCode', (req, res) => {
-  const randomCode = req.url.replace('/', '')
+  const randomCode = req.params.randomCode.replace('/', '')
   URL.find({ shortenURL: randomCode })
     .lean()
     .then(result => res.redirect(result[0].originURL))
