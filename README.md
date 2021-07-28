@@ -10,7 +10,7 @@ AlphaCamp學期2-3，A14的Shorten URL的專案，
 
 ## Screenshots
 
-![首頁](./homepage.PNG)
+![首頁](./home.PNG)
 ![複製](./copied.PNG)
 
 ### 安裝與執行步驟
