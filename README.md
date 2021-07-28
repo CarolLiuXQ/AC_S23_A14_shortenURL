@@ -2,6 +2,7 @@
 
 AlphaCamp學期2-3，A14的Shorten URL的專案，  
 使用 Node.js , Express , express-handlebars，可以將長的URL縮短。
+上傳至Heroku之後為 https://infinite-forest-59898.herokuapp.com/
 
 ## 功能描述
 
