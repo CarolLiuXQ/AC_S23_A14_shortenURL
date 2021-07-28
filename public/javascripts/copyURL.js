@@ -21,4 +21,4 @@ function copyURL() {
   copyButton.innerHTML = 'Copied!'
 }
 
-copyButton.addEventListener('click', copyURL)
+copyButton !== null ? copyButton.addEventListener('click', copyURL) : null

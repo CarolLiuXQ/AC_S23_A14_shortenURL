@@ -3,7 +3,7 @@ const router = express.Router()
 const PORT = process.env.PORT || 3000
 
 const URL = require('../../models/URL')
-const admin = 'https://infinite-forest-59898.herokuapp.com/' || `http://localhost:${PORT}/`
+const admin = `http://localhost:${PORT}/`
 const randomCode = require('../../tools/randomCode')
 const cleanOriginURL = require('../../tools/cleanOriginURL')
 
@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
       //因無相同網址，故產生一個新的
       else {
         const NewURL = new URL({
-          originURL: originURL,
+          originURL: adminLowerCaseURL,
           shortenURL: randomCode()
         })
         NewURL.save()
