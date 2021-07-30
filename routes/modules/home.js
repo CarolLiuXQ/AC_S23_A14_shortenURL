@@ -17,8 +17,23 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   //整理輸入網址
   const adminLowerCaseURL = cleanOriginURL(req.body.URL)
+  ////防止有重複的randomCode
+  let nonDuplicate = ''
+  URL.find().select('shortenURL -_id').lean().then(result => { 
+    let flag = false
+    do {
+      const code = randomCode()
+      const foundSameCode = result.find(url => url.shortenURL === code)
+      if (foundSameCode === undefined) {
+        flag = true
+        nonDuplicate = code
+      }
+    } while (flag === false)
+  })
+    .catch(error => console.log(error))
 
-  //////判斷網址有沒有重複
+
+  ////////判斷網址有沒有重複
   URL.find({ originURL: adminLowerCaseURL })
     .lean()
     .then(url => {
@@ -30,7 +45,7 @@ router.post('/', (req, res) => {
       else {
         const NewURL = new URL({
           originURL: adminLowerCaseURL,
-          shortenURL: randomCode()
+          shortenURL: nonDuplicate
         })
         NewURL.save()
           .then(() => res.render('index', { shortenURL: admin.concat(NewURL.shortenURL) }))
